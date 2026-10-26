@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app.config.settings import Settings
 
 
-db = SQLAlchemy()
+db_extension = SQLAlchemy()
 
 
 def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
@@ -28,7 +28,7 @@ def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
         app.config.update(test_config)
         app.config["SQLALCHEMY_DATABASE_URI"] = settings.database_url
 
-    db.init_app(app)
+    db_extension.init_app(app)
 
     @app.get("/healthz")
     def healthz() -> tuple[dict[str, str], int]:
@@ -37,4 +37,4 @@ def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
     return app
 
 
-__all__ = ["create_app", "db"]
+__all__ = ["create_app", "db_extension"]
